@@ -210,3 +210,4 @@ scripts/rollout
 checkpoint*.pt
 test/
 *.csv
+loco_manip_physical_rollout_accepted_v1/
