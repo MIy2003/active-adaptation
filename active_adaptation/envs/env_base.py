@@ -785,6 +785,10 @@ class _EnvBase(EnvBase, RegistryMixin):
 
         tensordict = TensorDict({}, self.num_envs, device=self.device)
         tensordict.update(self.observation_spec.zero())
+        # Opt-in tasks must refresh command/FK in their reset callback before
+        # history terms reset. Legacy tasks (including CHIP) retain zero reset obs.
+        if self.cfg.get("compute_observations_on_reset", False):
+            self._compute_observation(tensordict)
         tensordict.set("episode_id", self.episode_id.clone())
         self._last_gui_render_time = time.perf_counter()
         return tensordict
