@@ -1,0 +1,4 @@
+[submodule "projects/mimic-lite"]
+	path = projects/mimic-lite
+	url = https://github.com/MIy2003/mimic-lite.git
+	branch = chip-compliance

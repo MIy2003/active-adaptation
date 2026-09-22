@@ -22,19 +22,21 @@ Note: The main branch is fast-moving and therefore **almost constantly broken so
 
 The task implementations and Lambda launchers live in the separate
 [MIy2003/mimic-lite repository, branch `chip-compliance`](https://github.com/MIy2003/mimic-lite/tree/chip-compliance).
-The local `projects/mimic-lite/` directory is ignored by this framework repository;
-pulling this repository alone does not update that project.
+The `projects/mimic-lite/` directory is a tracked Git submodule pinned to the
+project revision used by this framework. It contains the task code, configs,
+metrics, tests and Lambda launchers.
 
-From the `active-adaptation` directory, clone the project if it is absent:
+From the `active-adaptation` directory, update the framework and its project:
 
 ```bash
-git clone --branch chip-compliance https://github.com/MIy2003/mimic-lite.git projects/mimic-lite
+git pull --ff-only origin chip-compliance
+git submodule update --init --recursive
 ```
 
-For an existing project checkout on `chip-compliance`:
+For a fresh checkout:
 
 ```bash
-git -C projects/mimic-lite pull --ff-only origin chip-compliance
+git clone --recurse-submodules --branch chip-compliance https://github.com/MIy2003/active-adaptation.git
 ```
 
 Lambda launchers (relative to the project repository):

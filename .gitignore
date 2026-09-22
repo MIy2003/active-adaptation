@@ -15,7 +15,6 @@ __pycache__/
 *$py.class
 
 projects/hdmi/
-projects/mimic-lite/
 records/
 :memory:.ses
 outputs
