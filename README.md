@@ -18,6 +18,38 @@ and more to come...
 
 Note: The main branch is fast-moving and therefore **almost constantly broken somewhere**. We intentionally practice human design and limit AI-generated code. The best usage of this codebase is to read it instead of directly using it for your own projects.
 
+## CHIP and three-point training (this fork)
+
+The task implementations and Lambda launchers live in the separate
+[MIy2003/mimic-lite repository, branch `chip-compliance`](https://github.com/MIy2003/mimic-lite/tree/chip-compliance).
+The local `projects/mimic-lite/` directory is ignored by this framework repository;
+pulling this repository alone does not update that project.
+
+From the `active-adaptation` directory, clone the project if it is absent:
+
+```bash
+git clone --branch chip-compliance https://github.com/MIy2003/mimic-lite.git projects/mimic-lite
+```
+
+For an existing project checkout on `chip-compliance`:
+
+```bash
+git -C projects/mimic-lite pull --ff-only origin chip-compliance
+```
+
+Lambda launchers (relative to the project repository):
+
+- [Legacy CHIP MLP with wrist-axis input](https://github.com/MIy2003/mimic-lite/blob/chip-compliance/scripts/train_chip_lambda_4gpu.slurm): `scripts/train_chip_lambda_4gpu.slurm`.
+- [Three-point Transformer with isotropic CHIP](https://github.com/MIy2003/mimic-lite/blob/chip-compliance/scripts/train_three_point_chip_lambda_4gpu.slurm): `scripts/train_three_point_chip_lambda_4gpu.slurm`.
+- [Three-point Transformer with wrist-axis CHIP](https://github.com/MIy2003/mimic-lite/blob/chip-compliance/scripts/train_three_point_chip_axis_lambda_4gpu.slurm): `scripts/train_three_point_chip_axis_lambda_4gpu.slurm`.
+
+The legacy launcher explicitly selects `wrist_axis`. For legacy CHIP without axis
+input, use `task.command.chip.compliance_mode=isotropic` in a copy of that launcher;
+there is no dedicated legacy isotropic Lambda launcher currently.
+See [THREE_POINT.md](https://github.com/MIy2003/mimic-lite/blob/chip-compliance/THREE_POINT.md)
+for configuration and checkpoint contracts. Install the project into the MJLab
+Python environment as described in the project documentation before training.
+
 ## Table of contents
 
 - [Installation](#installation)
